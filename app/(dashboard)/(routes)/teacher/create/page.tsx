@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
- 
 
 import {
   Form,
@@ -21,6 +20,9 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { auth } from "@clerk/nextjs/server";
+import { useUser } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -29,6 +31,7 @@ const formSchema = z.object({
 });
 
 const CreatePage = () => {
+  const { user } = useUser();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,10 +42,19 @@ const CreatePage = () => {
 
   const { isSubmitting, isValid } = form.formState;
 
-  const onSubmit = async (value: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // const { userId } = await auth();
+    if (!user) {
+      return new NextResponse("Unauthorized", { status: 401 });
+      // return new NextResponse.error("Unauthorized", { status: 401 });
+    }
     try {
-      const response = await axios.post("/api/course", value);
+      const response = await axios.post("/api/courses", {
+        title: values.title,
+        userId: user.id,
+      });
       router.push(`/teacher/courses/${response.data.id}`);
+      toast.success("Course created");
     } catch {
       toast.error("Something went wrong");
     }
