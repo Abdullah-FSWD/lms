@@ -1,24 +1,18 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model Course {
   id String @id @default(uuid()) @map("_id")
   userId String
-  title String @db.String
-  description String? @db.String
-  imageUrl String? @db.String
+  title String @db.Text
+  description String? @db.Text
+  imageUrl String? @db.Text
   price Float?
   isPublished Boolean @default(false)
 
@@ -27,8 +21,8 @@ model Course {
 
   attachments Attachment[]
 
-  createdAt DateTime? @default(now())
-  updatedAt DateTime?   
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt  // Added default and @updatedAt
 
   @@index([categoryId])
 }
@@ -42,14 +36,13 @@ model Category {
 model Attachment {
   id String @id @default(uuid()) @map("_id")
   name String
-  url String @db.String
+  url String @db.Text
 
   courseId String
-  course Course @relation(fields: [courseId], references: [id], onDelete:Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
- createdAt DateTime @default(now())
-  updatedAt DateTime 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt  // Added default and @updatedAt
 
   @@index([courseId])
 }
-

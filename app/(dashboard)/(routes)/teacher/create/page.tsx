@@ -1,71 +1,57 @@
 "use client";
-
-import * as z from "zod";
+import z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import toast from "react-hot-toast";
-
 import {
   Form,
   FormControl,
   FormDescription,
   FormField,
-  FormItem,
-  FormLabel,
   FormMessage,
+  FormLabel,
+  FormItem,
 } from "@/components/ui/form";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { auth } from "@clerk/nextjs/server";
-import { useUser } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
+import Link from "next/link";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   title: z.string().min(1, {
-    message: "title is required",
+    message: "Title is required",
   }),
 });
 
 const CreatePage = () => {
-  const { user } = useUser();
-  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
     },
   });
-
+  const router = useRouter();
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    // const { userId } = await auth();
-    if (!user) {
-      return new NextResponse("Unauthorized", { status: 401 });
-      // return new NextResponse.error("Unauthorized", { status: 401 });
-    }
     try {
       const response = await axios.post("/api/courses", {
         title: values.title,
-        userId: user.id,
       });
       router.push(`/teacher/courses/${response.data.id}`);
-      toast.success("Course created");
-    } catch {
+      toast.success(" Course created successfully ");
+    } catch (error) {
       toast.error("Something went wrong");
     }
   };
   return (
-    <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
+    <div className="max-w-5xl mx-auto flex md:items-center md:justify-center md:h-full p-6">
       <div>
         <h1 className="text-2xl">Name your course</h1>
         <p className="text-sm text-slate-600">
           What would you like to name your course? Don&apos;t worry you can
-          change this later!
+          change this later
         </p>
         <Form {...form}>
           <form
@@ -77,18 +63,17 @@ const CreatePage = () => {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Course title</FormLabel>
+                  <FormLabel>Course Title</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g. 'Advance web development'"
+                      placeholder="eg. Advance web development"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    What will you teach in this course?
+                    What will you teach in this course ?
                   </FormDescription>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -99,7 +84,7 @@ const CreatePage = () => {
                 </Button>
               </Link>
               <Button type="submit" disabled={!isValid || isSubmitting}>
-                Submit
+                Continue
               </Button>
             </div>
           </form>
