@@ -4,6 +4,11 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { Pencil } from "lucide-react";
+
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -15,8 +20,6 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
-import { useState } from "react";
 
 interface TitleFormProps {
   initialData: {
@@ -33,6 +36,7 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
@@ -41,7 +45,14 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("value", values);
+    try {
+      await axios.patch(`/api/courses/${courseId}`, values);
+      toast.success("Course uploaded");
+      toggleEdit();
+      router.refresh(); 
+    } catch {
+      toast.error("something went wrong");
+    }
   };
 
   return (
@@ -70,7 +81,7 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
             <FormField
               control={form.control}
               name="title"
-              render={(field) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <Input
