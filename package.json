@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit",
+    "check": "npm run lint && npm run type-check && npm run format"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.8.2",
@@ -22,21 +25,30 @@
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.54.1",
+    "react-hook-form": "^7.54.2",
     "react-hot-toast": "^2.4.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^8",
+    "@typescript-eslint/eslint-plugin": "^8.19.0",
+    "@typescript-eslint/parser": "^8.19.0",
+    "eslint": "^9.17.0",
     "eslint-config-next": "15.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.3",
+    "globals": "^15.14.0",
     "postcss": "^8",
+    "prettier": "^3.4.2",
     "prisma": "^6.1.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.19.0"
   }
 }
