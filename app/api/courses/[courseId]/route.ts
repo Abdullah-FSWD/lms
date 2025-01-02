@@ -16,13 +16,15 @@ export async function PATCH(
 
     const course = await db.course.update({
       where: {
-        id: params.courseId,
+        id: courseId,
         userId,
       },
       data: {
         ...values,
       },
     });
+
+    return NextResponse.json(course);
   } catch (error) {
     console.log("[COURSE_ID]", error);
     return new NextResponse("Internal Error", { status: 500 });
