@@ -6,7 +6,9 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
   ],
+  extends: ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
   rules: {
-    "prettier/prettier": "error", // Show Prettier issues as ESLint errors
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "react/react-in-jsx-scope": "off", // Disable this rule as it's not needed
   },
 };
