@@ -32,7 +32,7 @@ const formSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
 });
 
-const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
+export default function TitleForm({ initialData, courseId }: TitleFormProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -44,7 +44,7 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
 
   const { isSubmitting, isValid } = form.formState;
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast.success("Course uploaded");
@@ -53,7 +53,7 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
     } catch {
       toast.error("something went wrong");
     }
-  };
+  }
 
   return (
     <div className="mt-6 border bg-slate-100 rounder-md p-4">
@@ -102,6 +102,4 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
       )}
     </div>
   );
-};
-
-export default TitleForm;
+}

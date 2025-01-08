@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-const CoursesPage = () => {
+export default function CoursesPage() {
   return (
     <div className="p-6">
       <Link href="/teacher/create">
@@ -9,6 +9,4 @@ const CoursesPage = () => {
       </Link>
     </div>
   );
-};
-
-export default CoursesPage;
+}

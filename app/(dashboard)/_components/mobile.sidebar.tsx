@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/sheet";
 import { Sidebar } from "./sidebar";
 
-export const MobileSidebar = () => {
+export function MobileSidebar() {
   return (
     <Sheet>
       <SheetTrigger className="md:hidden pr-4 hover:opacity-75 transition">
@@ -19,4 +19,4 @@ export const MobileSidebar = () => {
       </SheetContent>
     </Sheet>
   );
-};
+}

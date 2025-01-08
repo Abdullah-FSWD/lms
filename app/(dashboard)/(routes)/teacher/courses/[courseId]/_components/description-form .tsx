@@ -31,7 +31,10 @@ const formSchema = z.object({
   description: z.string().min(1, { message: "Description is required" }),
 });
 
-const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
+export default function DescriptionForm({
+  initialData,
+  courseId,
+}: DescriptionFormProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -45,7 +48,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
 
   const { isSubmitting, isValid } = form.formState;
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast.success("Course uploaded");
@@ -54,7 +57,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
     } catch {
       toast.error("something went wrong");
     }
-  };
+  }
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
@@ -75,7 +78,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.description && "text-slate-500 italic"
+            !initialData.description && "text-slate-500 italic",
           )}
         >
           {initialData.description || "No description"}
@@ -111,6 +114,4 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
       )}
     </div>
   );
-};
-
-export default DescriptionForm;
+}
