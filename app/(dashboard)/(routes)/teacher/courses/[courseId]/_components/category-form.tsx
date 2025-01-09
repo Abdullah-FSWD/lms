@@ -26,14 +26,18 @@ import { Combobox } from "@/components/ui/combobox";
 interface CategoryFormProps {
   initialData: Course;
   courseId: string;
-  options:{label:string, value:string}[]
+  options: { label: string; value: string }[];
 }
 
 const formSchema = z.object({
   categoryId: z.string().min(1, { message: "Description is required" }),
 });
 
-const CategoryForm = ({ initialData, courseId, options }: CategoryFormProps) => {
+const CategoryForm = ({
+  initialData,
+  courseId,
+  options,
+}: CategoryFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -58,9 +62,11 @@ const CategoryForm = ({ initialData, courseId, options }: CategoryFormProps) => 
     }
   };
 
-  const selectdOption = options.find((option)=>option.value === initialData.categoryId)
+  const selectdOption = options.find(
+    (option) => option.value === initialData.categoryId
+  );
   return (
-    <div className="mt-6 border border-slate-100 rounder-md p-4">
+    <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
         Course category
         <Button onClick={toggleEdit} variant="ghost">
@@ -78,7 +84,7 @@ const CategoryForm = ({ initialData, courseId, options }: CategoryFormProps) => 
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.categoryId && "text-slate-500 italic",
+            !initialData.categoryId && "text-slate-500 italic"
           )}
         >
           {selectdOption?.label || "No category"}
@@ -95,7 +101,7 @@ const CategoryForm = ({ initialData, courseId, options }: CategoryFormProps) => 
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                   <Combobox options={options} {...field} />
+                    <Combobox options={options} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

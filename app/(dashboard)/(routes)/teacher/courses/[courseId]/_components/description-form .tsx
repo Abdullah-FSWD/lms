@@ -57,7 +57,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
   };
 
   return (
-    <div className="mt-6 border border-slate-100 rounder-md p-4">
+    <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
         Course Description
         <Button onClick={toggleEdit} variant="ghost">
@@ -75,7 +75,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.description && "text-slate-500 italic",
+            !initialData.description && "text-slate-500 italic"
           )}
         >
           {initialData.description || "No description"}
