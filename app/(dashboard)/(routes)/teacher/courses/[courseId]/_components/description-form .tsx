@@ -61,6 +61,7 @@ export default function DescriptionForm({
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
+    <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-center">
         Course Description
         <Button onClick={toggleEdit} variant="ghost">
@@ -78,7 +79,7 @@ export default function DescriptionForm({
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.description && "text-slate-500 italic",
+            !initialData.description && "text-slate-500 italic"
           )}
         >
           {initialData.description || "No description"}
@@ -114,4 +115,5 @@ export default function DescriptionForm({
       )}
     </div>
   );
-}
+};
+export default DescriptionForm;
