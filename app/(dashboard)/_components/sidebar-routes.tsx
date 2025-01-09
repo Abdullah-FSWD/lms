@@ -30,7 +30,7 @@ const teacherRoutes = [
   },
 ];
 
-export function SidebarRoutes() {
+export const SidebarRoutes = () => {
   const pathname = usePathname();
 
   const isTeacherPage = pathname?.includes("/teacher");
@@ -48,4 +48,4 @@ export function SidebarRoutes() {
       ))}
     </div>
   );
-}
+};

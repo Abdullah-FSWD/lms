@@ -7,11 +7,7 @@ import TitleForm from "./_components/title-form";
 import DescriptionForm from "./_components/description-form ";
 import ImageForm from "./_components/image-form";
 
-export default async function CourseIdPage({
-  params,
-}: {
-  params: { courseId: string };
-}) {
+const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = await auth();
   const { courseId } = await params;
   if (!userId) {
@@ -20,12 +16,6 @@ export default async function CourseIdPage({
   const course = await db.course.findUnique({
     where: {
       id: courseId,
-    },
-  });
-
-  const categories = await db.category.findMany({
-    orderBy: {
-      name: "asc",
     },
   });
   if (!course) {
@@ -68,4 +58,6 @@ export default async function CourseIdPage({
       </div>
     </div>
   );
-}
+};
+
+export default CourseIdPage;

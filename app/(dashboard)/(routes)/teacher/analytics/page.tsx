@@ -1,5 +1,5 @@
-export default function AnalyticsPage() {
+const AnalyticsPage = () => {
   return <div>Analytics page!</div>;
-}
+};
 
 export default AnalyticsPage;

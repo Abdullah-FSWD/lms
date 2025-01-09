@@ -24,7 +24,7 @@ const formSchema = z.object({
   }),
 });
 
-export default function CreatePage() {
+const CreatePage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -92,4 +92,6 @@ export default function CreatePage() {
       </div>
     </div>
   );
-}
+};
+
+export default CreatePage;

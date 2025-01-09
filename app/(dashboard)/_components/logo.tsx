@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export function Logo() {
+export const Logo = () => {
   return (
     <Image
       className="m-4"
@@ -10,4 +10,4 @@ export function Logo() {
       src="/logo.svg"
     />
   );
-}
+};

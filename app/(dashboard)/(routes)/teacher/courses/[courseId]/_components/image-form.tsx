@@ -22,13 +22,13 @@ const formSchema = z.object({
   imageUrl: z.string().min(1, { message: "Image is required" }),
 });
 
-export default function ImageForm({ initialData, courseId }: ImageFormProps) {
+const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
   const router = useRouter();
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log("value1", values);
 
     try {
@@ -40,7 +40,7 @@ export default function ImageForm({ initialData, courseId }: ImageFormProps) {
     } catch {
       toast.error("something went wrong");
     }
-  }
+  };
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
@@ -94,4 +94,6 @@ export default function ImageForm({ initialData, courseId }: ImageFormProps) {
       )}
     </div>
   );
-}
+};
+
+export default ImageForm;
