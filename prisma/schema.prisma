@@ -8,41 +8,36 @@ datasource db {
 }
 
 model Course {
-  id String @id @default(uuid()) @map("_id")
-  userId String
-  title String @db.Text
-  description String? @db.Text
-  imageUrl String? @db.Text
-  price Float?
-  isPublished Boolean @default(false)
-
-  categoryId String?
-  category Category? @relation(fields: [categoryId], references: [id])
-
+  id          String       @id @default(uuid()) @map("_id")
+  userId      String
+  title       String       @db.Text
+  description String?      @db.Text
+  imageUrl    String?      @db.Text
+  price       Float?
+  isPublished Boolean      @default(false)
+  categoryId  String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
   attachments Attachment[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt  // Added default and @updatedAt
+  category    Category?    @relation(fields: [categoryId], references: [id])
 
   @@index([categoryId])
 }
 
 model Category {
-  id String @id @default(uuid()) @map("_id")
-  name String @unique
+  id     String   @id @default(uuid()) @map("_id")
+  name   String   @unique
   course Course[]
 }
 
 model Attachment {
-  id String @id @default(uuid()) @map("_id")
-  name String
-  url String @db.Text
-
-  courseId String
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
+  id        String   @id @default(uuid()) @map("_id")
+  name      String
+  url       String   @db.Text
+  courseId  String
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt  // Added default and @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@index([courseId])
 }
