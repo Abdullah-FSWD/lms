@@ -3,8 +3,7 @@
 import * as z from "zod";
 import axios from "axios";
 import { useState } from "react";
-import { File, ImageIcon, Loader2, Pencil, PlusCircle, X } from "lucide-react";
-import Image from "next/image";
+import { File, Loader2, PlusCircle, X } from "lucide-react";
 
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -22,7 +21,10 @@ const formSchema = z.object({
   url: z.string().min(1),
 });
 
-const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
+export const AttachmentForm = ({
+  initialData,
+  courseId,
+}: AttachmentFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
@@ -120,5 +122,3 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
     </div>
   );
 };
-
-export default AttachmentForm;

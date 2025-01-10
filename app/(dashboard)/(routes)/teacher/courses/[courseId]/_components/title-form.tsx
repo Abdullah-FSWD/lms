@@ -32,7 +32,7 @@ const formSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
 });
 
-const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
+export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -103,5 +103,3 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
     </div>
   );
 };
-
-export default TitleForm;

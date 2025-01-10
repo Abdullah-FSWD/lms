@@ -20,7 +20,6 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
 import { Combobox } from "@/components/ui/combobox";
 
 interface CategoryFormProps {
@@ -33,7 +32,7 @@ const formSchema = z.object({
   categoryId: z.string().min(1, { message: "Description is required" }),
 });
 
-const CategoryForm = ({
+export const CategoryForm = ({
   initialData,
   courseId,
   options,
@@ -116,5 +115,3 @@ const CategoryForm = ({
     </div>
   );
 };
-
-export default CategoryForm;

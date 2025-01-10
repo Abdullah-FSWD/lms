@@ -31,7 +31,10 @@ const formSchema = z.object({
   description: z.string().min(1, { message: "Description is required" }),
 });
 
-const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
+export const DescriptionForm = ({
+  initialData,
+  courseId,
+}: DescriptionFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -112,5 +115,3 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
     </div>
   );
 };
-
-export default DescriptionForm;
