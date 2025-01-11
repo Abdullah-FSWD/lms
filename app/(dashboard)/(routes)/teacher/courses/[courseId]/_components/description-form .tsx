@@ -31,7 +31,10 @@ const formSchema = z.object({
   description: z.string().min(1, { message: "Description is required" }),
 });
 
-const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
+export const DescriptionForm = ({
+  initialData,
+  courseId,
+}: DescriptionFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -57,7 +60,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
   };
 
   return (
-    <div className="mt-6 border border-slate-100 rounder-md p-4">
+    <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
         Course Description
         <Button onClick={toggleEdit} variant="ghost">
@@ -75,7 +78,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.description && "text-slate-500 italic",
+            !initialData.description && "text-slate-500 italic"
           )}
         >
           {initialData.description || "No description"}
@@ -94,9 +97,8 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
                   <FormControl>
                     <Textarea
                       disabled={isSubmitting}
-                      placeholder="e.g 'Advance web development'"
+                      placeholder="e.g 'This course is about...'"
                       {...field}
-                      value={field.value || ""}
                     />
                   </FormControl>
                   <FormMessage />
@@ -104,7 +106,9 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button disabled={!isValid || isSubmitting}>Save</Button>
+              <Button type="submit" disabled={!isValid || isSubmitting}>
+                Save
+              </Button>
             </div>
           </form>
         </Form>
@@ -112,5 +116,3 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
     </div>
   );
 };
-
-export default DescriptionForm;

@@ -32,7 +32,7 @@ const formSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
 });
 
-const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
+export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -56,7 +56,7 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   };
 
   return (
-    <div className="mt-6 border border-slate-100 rounder-md p-4">
+    <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
         Course Title
         <Button onClick={toggleEdit} variant="ghost">
@@ -95,7 +95,9 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button disabled={!isValid || isSubmitting}>Save</Button>
+              <Button type="submit" disabled={!isValid || isSubmitting}>
+                Save
+              </Button>
             </div>
           </form>
         </Form>
@@ -103,5 +105,3 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
     </div>
   );
 };
-
-export default TitleForm;
