@@ -36,9 +36,11 @@ export async function PATCH(
 
     const muxData = await db.muxData.findUnique({
       where: {
-        id: params.chapterId,
+        chapterId: params.chapterId,
       },
     });
+    console.log("chapter", chapter);
+    console.log("muxData", muxData);
 
     if (
       !chapter ||
@@ -50,15 +52,17 @@ export async function PATCH(
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
-    const publishChapter = await db.chapter.update({
+    const publishedChapter = await db.chapter.update({
       where: {
         id: params.chapterId,
-        courseId: params.chapterId,
+        courseId: params.courseId,
       },
       data: {
         isPublished: true,
       },
     });
+
+    return NextResponse.json(publishedChapter);
   } catch (error) {
     console.log("[ChHAPTER_PUBLISH]", error);
     return new NextResponse("Internal Error", { status: 500 });
