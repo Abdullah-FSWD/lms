@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { formatePrice } from "@/lib/format";
+import { formatPrice } from "@/lib/format";
 
 export const columns: ColumnDef<Course>[] = [
   {
@@ -47,7 +47,7 @@ export const columns: ColumnDef<Course>[] = [
     },
     cell: ({ row }) => {
       const price = parseFloat(row.getValue("price") || "0");
-      const formattedPrice = formatePrice(price);
+      const formattedPrice = formatPrice(price);
       return <div>{formattedPrice}</div>;
     },
   },

@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { formatePrice } from "@/lib/format";
+import { formatPrice } from "@/lib/format";
 
 interface PriceFormProps {
   initialData: Course;
@@ -80,7 +80,7 @@ export const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
             !initialData.price && "text-slate-500 italic"
           )}
         >
-          {initialData.price ? formatePrice(initialData.price) : "No price"}
+          {initialData.price ? formatPrice(initialData.price) : "No price"}
         </p>
       ) : (
         <Form {...form}>
