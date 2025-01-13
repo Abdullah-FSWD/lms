@@ -1,7 +1,6 @@
 "use client";
 
 import { Category } from "@prisma/client";
-
 import {
   FcEngineering,
   FcFilmReel,
