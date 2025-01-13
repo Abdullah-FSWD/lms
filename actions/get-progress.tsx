@@ -26,7 +26,10 @@ export const getProgress = async (
       },
     });
 
-    cost progreaaPercentage =(validCompletedChapters / publishedChaptersIds.lenght)* 100
+    const progreaaPercentage =
+      (validCompletedChapters / publishedChaptersIds.length) * 100;
+
+    return progreaaPercentage;
   } catch (error) {
     console.log("[GET_PROGRESS[", error);
     return 0;
