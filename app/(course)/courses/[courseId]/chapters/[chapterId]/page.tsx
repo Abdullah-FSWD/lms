@@ -1,9 +1,14 @@
 import { auth } from "@clerk/nextjs/server";
+import { File } from "lucide-react";
 import { redirect } from "next/navigation";
 
 import { getChapter } from "@/actions/get-chapter";
 import { Banner } from "@/components/banner";
+import { Separator } from "@/components/ui/separator";
+import { Preview } from "@/components/preview";
+
 import { VideoPlayer } from "./_components/video-player";
+import { CourseEnrollButton } from "./_components/course-enroll-button";
 
 const ChapterIdPage = async ({
   params,
@@ -58,6 +63,42 @@ const ChapterIdPage = async ({
             isLocked={isLocked}
             completedOnEnd={completedonEnd}
           />
+        </div>
+        <div>
+          <div className="p-4 flex flex-col md:flex-row items-center justify-between">
+            <h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
+            {purchase ? (
+              // TODO: Add CourseProgressButton
+              <div>{/* TODO: Add CourseProgressButton */}</div>
+            ) : (
+              <CourseEnrollButton
+                courseId={params.courseId}
+                price={course.price!}
+              />
+            )}
+          </div>
+          <Separator />
+          <div>
+            <Preview value={chapter.description!} />
+          </div>
+          {!!attachemnts.length && (
+            <>
+              <Separator />
+              <div className="p-4">
+                {attachemnts.map((attachemnt) => (
+                  <a
+                    href={attachemnt.url}
+                    target="_blank"
+                    key={attachemnt.id}
+                    className="flex items-center p-3 w-full bg-sky-200 border text-sky-700 rounded-md hover:underline"
+                  >
+                    <File />
+                    <p className="line-clamp-1">{attachemnt.name}</p>
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
