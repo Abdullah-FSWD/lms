@@ -5,6 +5,7 @@ import { IconType } from "react-icons/lib";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { cn } from "@/lib/utils";
+import { Suspense } from "react";
 
 interface CategoryItemProps {
   label: string;
@@ -40,16 +41,18 @@ export const CategoryItem = ({
     router.push(url);
   };
   return (
-    <button
-      onClick={onClick}
-      className={cn(
-        "py-2 px-3 text-sm border border-slate-200 rounded-full flex items-center gap-x-1 hover:border-sky-700 transition",
-        isSelected && "border-sky-700 bg-sky-200/20 text-sky-800"
-      )}
-      type="button"
-    >
-      {Icon && <Icon size={20} />}
-      <div className="truncate">{label}</div>
-    </button>
+    <Suspense fallback={<div>loading...</div>}>
+      <button
+        onClick={onClick}
+        className={cn(
+          "py-2 px-3 text-sm border border-slate-200 rounded-full flex items-center gap-x-1 hover:border-sky-700 transition",
+          isSelected && "border-sky-700 bg-sky-200/20 text-sky-800"
+        )}
+        type="button"
+      >
+        {Icon && <Icon size={20} />}
+        <div className="truncate">{label}</div>
+      </button>
+    </Suspense>
   );
 };

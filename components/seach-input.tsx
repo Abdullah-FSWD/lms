@@ -1,7 +1,7 @@
 "use client";
 
 import { SearchIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
 
@@ -32,14 +32,16 @@ export const SearchInput = () => {
     router.push(url);
   }, [debounceValue, currentCategoryId, router, pathname]);
   return (
-    <div className="relative">
-      <SearchIcon className="h-4 w-4 absolute top-3 left-3 text-slate-600" />
-      <Input
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        className="w-full md:w-[300px] pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200"
-        placeholder="Search for a course"
-      />
-    </div>
+    <Suspense fallback={<div>loading...</div>}>
+      <div className="relative">
+        <SearchIcon className="h-4 w-4 absolute top-3 left-3 text-slate-600" />
+        <Input
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className="w-full md:w-[300px] pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200"
+          placeholder="Search for a course"
+        />
+      </div>
+    </Suspense>
   );
 };
