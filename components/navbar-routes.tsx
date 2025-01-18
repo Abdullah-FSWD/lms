@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { SearchInput } from "./seach-input";
+import { Suspense } from "react";
 
 export const NavbarRoutes = () => {
   const pathname = usePathname();
@@ -16,9 +17,11 @@ export const NavbarRoutes = () => {
   return (
     <>
       {isSearchPage && (
-        <div className="hidden md:block">
-          <SearchInput />
-        </div>
+        <Suspense fallback={<div>loading...</div>}>
+          <div className="hidden md:block">
+            <SearchInput />
+          </div>
+        </Suspense>
       )}
       <div className="flex gap-x-2 ml-auto">
         {isTeacher || isCoursePage ? (
